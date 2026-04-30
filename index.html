@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CardProjector — Grade Prediction Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f3ee;
+    --accent: #e8c547;
+    --muted: #888;
+    --border: rgba(255,255,255,0.08);
+    --card: rgba(255,255,255,0.04);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: #0a0a0a;
+    color: #f5f3ee;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  .cp-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 48px;
+    border-bottom: 0.5px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,10,0.96);
+    z-index: 100;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .cp-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .cp-logo span { color: var(--accent); }
+
+  .cp-nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .cp-nav-links li a {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .cp-nav-links li a:hover { color: var(--accent); }
+
+  /* HERO */
+  .cp-hero {
+    padding: 80px 48px 64px;
+    border-bottom: 0.5px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .cp-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+
+  .cp-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(56px, 9vw, 96px);
+    letter-spacing: 2px;
+    line-height: 0.93;
+    margin-bottom: 28px;
+    color: var(--white);
+  }
+
+  .cp-headline em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .cp-sub {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.75;
+    margin-bottom: 48px;
+  }
+
+  .cp-stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    width: fit-content;
+  }
+
+  .cp-stat {
+    background: #0a0a0a;
+    padding: 20px 28px;
+  }
+
+  .cp-stat-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--white);
+  }
+
+  .cp-stat-val.accent { color: var(--accent); }
+
+  .cp-stat-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  /* SECTIONS */
+  .cp-section {
+    padding: 64px 48px;
+    border-bottom: 0.5px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .cp-section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 36px;
+  }
+
+  /* PHX CARD */
+  .phx-card {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 32px;
+    max-width: 720px;
+  }
+
+  .phx-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+  }
+
+  .phx-id {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--accent);
+  }
+
+  .phx-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--white);
+    margin-top: 6px;
+  }
+
+  .phx-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    background: rgba(232,197,71,0.12);
+    color: var(--accent);
+    border: 0.5px solid rgba(232,197,71,0.3);
+    letter-spacing: 1px;
+  }
+
+  .phx-score-row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+
+  .phx-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .phx-score-label {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .phx-score-label span {
+    color: var(--accent);
+    font-size: 11px;
+  }
+
+  .phx-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .phx-bar-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 52px;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .phx-bar-label {
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 10px;
+  }
+
+  .phx-bar-track {
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .phx-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+  }
+
+  .phx-bar-fill.s { background: var(--accent); width: 91%; }
+  .phx-bar-fill.c { background: #7ecfb3; width: 95%; }
+  .phx-bar-fill.e { background: #7ea4cf; width: 94%; }
+  .phx-bar-fill.x { background: #cf7ea4; width: 92%; }
+
+  .phx-bar-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--white);
+    text-align: right;
+  }
+
+  .phx-prob-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .phx-prob-cell {
+    background: #0f0f0f;
+    padding: 16px 20px;
+    text-align: center;
+  }
+
+  .phx-prob-grade {
+    font-family: 'DM Mono', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--white);
+  }
+
+  .phx-prob-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    margin-top: 4px;
+  }
+
+  .phx-prob-label {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .phx-decision {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 22px;
+    background: rgba(232,197,71,0.06);
+    border: 0.5px solid rgba(232,197,71,0.2);
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+
+  .phx-decision-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .phx-decision-text {
+    font-size: 13px;
+    color: var(--white);
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  .phx-decision-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-left: auto;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .ves-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .ves-zone {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .ves-zone.red { background: rgba(207,126,126,0.1); border: 0.5px solid rgba(207,126,126,0.22); }
+  .ves-zone.orange { background: rgba(207,167,126,0.1); border: 0.5px solid rgba(207,167,126,0.22); }
+  .ves-zone.green { background: rgba(126,207,179,0.1); border: 0.5px solid rgba(126,207,179,0.22); }
+
+  .ves-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .ves-zone.red .ves-label { color: #cf7e7e; }
+  .ves-zone.orange .ves-label { color: #cfa77e; }
+  .ves-zone.green .ves-label { color: #7ecfb3; }
+
+  .ves-desc { font-size: 10px; color: var(--muted); }
+
+  /* MODULES */
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  @media (max-width: 900px) {
+    .modules-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .mod-cell {
+    background: #0a0a0a;
+    padding: 24px;
+  }
+
+  .mod-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .mod-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .mod-desc {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .mod-weight {
+    margin-top: 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    line-height: 1.7;
+  }
+
+  /* ROI TABLE */
+  .roi-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .roi-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 12px 18px;
+    text-align: left;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .roi-table td {
+    padding: 14px 18px;
+    border-bottom: 0.5px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+  }
+
+  .roi-table tr:last-child td { border-bottom: none; }
+  .roi-table .grade { color: var(--white); font-weight: 500; }
+  .roi-table .pos { color: #7ecfb3; }
+  .roi-table .neg { color: #cf7e7e; }
+  .roi-table tr.highlight { background: rgba(232,197,71,0.04); }
+  .roi-table tr.highlight td.grade { color: var(--accent); }
+
+  /* ROADMAP */
+  .roadmap-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  @media (max-width: 800px) {
+    .roadmap-row { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .phase {
+    background: #0a0a0a;
+    padding: 24px;
+  }
+
+  .phase.active { background: rgba(232,197,71,0.04); }
+
+  .phase-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .phase-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .phase.active .phase-title { color: var(--accent); }
+
+  .phase-desc {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .phase-status {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--muted);
+    flex-shrink: 0;
+  }
+
+  .status-dot.live { background: var(--accent); }
+
+  .status-text {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* FOOTER */
+  .cp-footer {
+    padding: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .cp-footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: var(--muted);
+  }
+
+  .cp-footer-copy {
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 600px) {
+    .cp-nav { padding: 16px 20px; }
+    .cp-hero, .cp-section { padding: 48px 20px; }
+    .cp-stats-row { grid-template-columns: repeat(2, 1fr); }
+    .cp-footer { padding: 20px; flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="cp-nav">
+  <a class="cp-logo" href="#">Card<span>Projector</span></a>
+  <ul class="cp-nav-links">
+    <li><a href="#analysis">Live Analysis</a></li>
+    <li><a href="#modules">GPPP Modules</a></li>
+    <li><a href="#roi">ROI Model</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+  </ul>
+</nav>
+
+<div class="cp-hero">
+  <div class="cp-eyebrow">Grade Prediction Protocol — GPPP v1.0</div>
+  <div class="cp-headline">Pre-submission<br>grade <em>intelligence</em><br>for the serious<br>collector.</div>
+  <p class="cp-sub">PSA charges $29/card for a single integer. GPPP delivers a probability-weighted grade forecast before you submit. Know the EV. Move with precision.</p>
+  <div class="cp-stats-row">
+    <div class="cp-stat">
+      <div class="cp-stat-val accent">617</div>
+      <div class="cp-stat-label">Certified cards</div>
+    </div>
+    <div class="cp-stat">
+      <div class="cp-stat-val">44.5%</div>
+      <div class="cp-stat-label">Gem rate (PSA 10)</div>
+    </div>
+    <div class="cp-stat">
+      <div class="cp-stat-val">82.8%</div>
+      <div class="cp-stat-label">PSA 9+ combined</div>
+    </div>
+    <div class="cp-stat">
+      <div class="cp-stat-val accent">15</div>
+      <div class="cp-stat-label">Orders submitted</div>
+    </div>
+  </div>
+</div>
+
+<div class="cp-section" id="analysis">
+  <div class="cp-section-label">Live analysis — PHX-0001</div>
+  <div class="phx-card">
+    <div class="phx-header">
+      <div>
+        <div class="phx-id">PHX-0001</div>
+        <div class="phx-name">Justin Crawford — 1st Bowman Atomic Refractor</div>
+      </div>
+      <div class="phx-badge">SUBMIT</div>
+    </div>
+
+    <div class="phx-score-row">
+      <div class="phx-score">9.35</div>
+      <div class="phx-score-label">GPPP score<br><span>High volatility</span></div>
+    </div>
+
+    <div class="phx-bars">
+      <div class="phx-bar-row">
+        <div class="phx-bar-label">Surface</div>
+        <div class="phx-bar-track"><div class="phx-bar-fill s"></div></div>
+        <div class="phx-bar-val">9.1</div>
+      </div>
+      <div class="phx-bar-row">
+        <div class="phx-bar-label">Corners</div>
+        <div class="phx-bar-track"><div class="phx-bar-fill c"></div></div>
+        <div class="phx-bar-val">9.5</div>
+      </div>
+      <div class="phx-bar-row">
+        <div class="phx-bar-label">Centering</div>
+        <div class="phx-bar-track"><div class="phx-bar-fill e"></div></div>
+        <div class="phx-bar-val">9.4</div>
+      </div>
+      <div class="phx-bar-row">
+        <div class="phx-bar-label">Edges</div>
+        <div class="phx-bar-track"><div class="phx-bar-fill x"></div></div>
+        <div class="phx-bar-val">9.2</div>
+      </div>
+    </div>
+
+    <div class="phx-prob-row">
+      <div class="phx-prob-cell">
+        <div class="phx-prob-grade">PSA 10</div>
+        <div class="phx-prob-pct">48%</div>
+        <div class="phx-prob-label">Gem mint</div>
+      </div>
+      <div class="phx-prob-cell">
+        <div class="phx-prob-grade">PSA 9</div>
+        <div class="phx-prob-pct">44%</div>
+        <div class="phx-prob-label">Mint</div>
+      </div>
+      <div class="phx-prob-cell">
+        <div class="phx-prob-grade">PSA 8</div>
+        <div class="phx-prob-pct">8%</div>
+        <div class="phx-prob-label">NM-MT</div>
+      </div>
+    </div>
+
+    <div class="phx-decision">
+      <div class="phx-decision-dot"></div>
+      <div class="phx-decision-text">Decision: Submit</div>
+      <div class="phx-decision-sub">EV positive at $29 cost basis</div>
+    </div>
+
+    <div class="ves-row">
+      <div class="ves-zone red">
+        <div class="ves-label">Red</div>
+        <div class="ves-desc">Defects</div>
+      </div>
+      <div class="ves-zone orange">
+        <div class="ves-label">Orange</div>
+        <div class="ves-desc">Minor wear</div>
+      </div>
+      <div class="ves-zone green">
+        <div class="ves-label">Green</div>
+        <div class="ves-desc">Clean submit</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cp-section" id="modules">
+  <div class="cp-section-label">GPPP — five modules</div>
+  <div class="modules-grid">
+    <div class="mod-cell">
+      <div class="mod-num">I</div>
+      <div class="mod-title">Weighted Model</div>
+      <div class="mod-desc">Four dimensions scored and weighted to produce the composite GPPP figure.</div>
+      <div class="mod-weight">Surface 45%<br>Corners 20%<br>Centering 20%<br>Edges 15%</div>
+    </div>
+    <div class="mod-cell">
+      <div class="mod-num">II</div>
+      <div class="mod-title">RAKE Probability</div>
+      <div class="mod-desc">Actuarial grade distribution model. Maps score to PSA 10 / 9 / 8 probability split.</div>
+    </div>
+    <div class="mod-cell">
+      <div class="mod-num">III</div>
+      <div class="mod-title">VES Visual Evidence</div>
+      <div class="mod-desc">Red / Orange / Green zone classification of visible defects via controlled lightbox imaging.</div>
+    </div>
+    <div class="mod-cell">
+      <div class="mod-num">IV</div>
+      <div class="mod-title">Decision Engine</div>
+      <div class="mod-desc">Submit / Hold / Pass verdict derived from module I–III outputs and cost threshold.</div>
+    </div>
+    <div class="mod-cell">
+      <div class="mod-num">V</div>
+      <div class="mod-title">EV Logic</div>
+      <div class="mod-desc">Expected value calculation against $29 submission cost. Verdict only stands if EV is positive.</div>
+    </div>
+  </div>
+</div>
+
+<div class="cp-section" id="roi">
+  <div class="cp-section-label">ROI break-even — $29 submission basis</div>
+  <table class="roi-table">
+    <thead>
+      <tr>
+        <th>Grade outcome</th>
+        <th>Avg PSA sale</th>
+        <th>Raw cost est.</th>
+        <th>Sub fee</th>
+        <th>Net</th>
+        <th>Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td class="grade">PSA 10</td>
+        <td>$180</td>
+        <td>$15</td>
+        <td>$29</td>
+        <td class="pos">+$136</td>
+        <td class="pos">Submit</td>
+      </tr>
+      <tr>
+        <td class="grade">PSA 9</td>
+        <td>$65</td>
+        <td>$15</td>
+        <td>$29</td>
+        <td class="pos">+$21</td>
+        <td class="pos">Marginal</td>
+      </tr>
+      <tr>
+        <td class="grade">PSA 8</td>
+        <td>$28</td>
+        <td>$15</td>
+        <td>$29</td>
+        <td class="neg">-$16</td>
+        <td class="neg">Avoid</td>
+      </tr>
+      <tr>
+        <td class="grade">PSA 7</td>
+        <td>$14</td>
+        <td>$15</td>
+        <td>$29</td>
+        <td class="neg">-$30</td>
+        <td class="neg">Do not submit</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="cp-section" id="roadmap">
+  <div class="cp-section-label">Roadmap — four phases</div>
+  <div class="roadmap-row">
+    <div class="phase active">
+      <div class="phase-num">Phase 01</div>
+      <div class="phase-title">MVP + Data Baseline</div>
+      <div class="phase-desc">CardProjector.com live. 617-card PSA ledger. Order 15 validation batch submitted.</div>
+      <div class="phase-status">
+        <div class="status-dot live"></div>
+        <div class="status-text">Live</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">Phase 02</div>
+      <div class="phase-title">Actuarial Validation</div>
+      <div class="phase-desc">Order 15 returns Jun/Jul 2026. 63-card GPPP vs PSA result comparison. Confidence interval established.</div>
+      <div class="phase-status">
+        <div class="status-dot"></div>
+        <div class="status-text">Q2 2026</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">Phase 03</div>
+      <div class="phase-title">Partnership + Scale</div>
+      <div class="phase-desc">WeTheHobby integration. WTH loyalty referral mechanic. GradeProjector.com launch.</div>
+      <div class="phase-status">
+        <div class="status-dot"></div>
+        <div class="status-text">Q3 2026</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">Phase 04</div>
+      <div class="phase-title">Monetization + Exit</div>
+      <div class="phase-desc">SaaS tier launch. Acquisition positioning. Target: PSA / Collectors Holdings.</div>
+      <div class="phase-status">
+        <div class="status-dot"></div>
+        <div class="status-text">Q4 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="cp-footer">
+  <div class="cp-footer-logo">CardProjector</div>
+  <div class="cp-footer-copy">High &amp; Inside, LLC &middot; Rochester, NY &middot; GPPP v1.0</div>
+</footer>
+
+</body>
+</html>
