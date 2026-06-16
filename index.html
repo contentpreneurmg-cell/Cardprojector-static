@@ -29,7 +29,6 @@
     min-height: 100vh;
   }
 
-  /* NAV */
   .cp-nav {
     display: flex;
     justify-content: space-between;
@@ -71,7 +70,6 @@
 
   .cp-nav-links li a:hover { color: var(--accent); }
 
-  /* HERO */
   .cp-hero {
     padding: 80px 48px 64px;
     border-bottom: 0.5px solid var(--border);
@@ -143,7 +141,6 @@
     margin-top: 6px;
   }
 
-  /* SECTIONS */
   .cp-section {
     padding: 64px 48px;
     border-bottom: 0.5px solid var(--border);
@@ -160,7 +157,6 @@
     margin-bottom: 36px;
   }
 
-  /* PHX CARD */
   .phx-card {
     background: var(--card);
     border: 0.5px solid var(--border);
@@ -254,11 +250,7 @@
     overflow: hidden;
   }
 
-  .phx-bar-fill {
-    height: 100%;
-    border-radius: 2px;
-  }
-
+  .phx-bar-fill { height: 100%; border-radius: 2px; }
   .phx-bar-fill.s { background: var(--accent); width: 91%; }
   .phx-bar-fill.c { background: #7ecfb3; width: 95%; }
   .phx-bar-fill.e { background: #7ea4cf; width: 94%; }
@@ -342,10 +334,7 @@
     font-family: 'DM Mono', monospace;
   }
 
-  .ves-row {
-    display: flex;
-    gap: 8px;
-  }
+  .ves-row { display: flex; gap: 8px; }
 
   .ves-zone {
     flex: 1;
@@ -368,10 +357,8 @@
   .ves-zone.red .ves-label { color: #cf7e7e; }
   .ves-zone.orange .ves-label { color: #cfa77e; }
   .ves-zone.green .ves-label { color: #7ecfb3; }
-
   .ves-desc { font-size: 10px; color: var(--muted); }
 
-  /* MODULES */
   .modules-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -386,10 +373,7 @@
     .modules-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
-  .mod-cell {
-    background: #0a0a0a;
-    padding: 24px;
-  }
+  .mod-cell { background: #0a0a0a; padding: 24px; }
 
   .mod-num {
     font-family: 'DM Mono', monospace;
@@ -407,11 +391,7 @@
     letter-spacing: 0.5px;
   }
 
-  .mod-desc {
-    font-size: 11px;
-    color: var(--muted);
-    line-height: 1.65;
-  }
+  .mod-desc { font-size: 11px; color: var(--muted); line-height: 1.65; }
 
   .mod-weight {
     margin-top: 14px;
@@ -421,12 +401,7 @@
     line-height: 1.7;
   }
 
-  /* ROI TABLE */
-  .roi-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
+  .roi-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 
   .roi-table th {
     font-family: 'DM Mono', monospace;
@@ -453,7 +428,6 @@
   .roi-table tr.highlight { background: rgba(232,197,71,0.04); }
   .roi-table tr.highlight td.grade { color: var(--accent); }
 
-  /* ROADMAP */
   .roadmap-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -468,11 +442,7 @@
     .roadmap-row { grid-template-columns: repeat(2, 1fr); }
   }
 
-  .phase {
-    background: #0a0a0a;
-    padding: 24px;
-  }
-
+  .phase { background: #0a0a0a; padding: 24px; }
   .phase.active { background: rgba(232,197,71,0.04); }
 
   .phase-num {
@@ -491,12 +461,7 @@
   }
 
   .phase.active .phase-title { color: var(--accent); }
-
-  .phase-desc {
-    font-size: 11px;
-    color: var(--muted);
-    line-height: 1.65;
-  }
+  .phase-desc { font-size: 11px; color: var(--muted); line-height: 1.65; }
 
   .phase-status {
     margin-top: 16px;
@@ -522,7 +487,220 @@
     color: var(--muted);
   }
 
-  /* FOOTER */
+  .ves-report {
+    background: #0f0f1a;
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 32px;
+    max-width: 860px;
+  }
+
+  .ves-report-header {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--white);
+    letter-spacing: 0.5px;
+    margin-bottom: 28px;
+  }
+
+  .ves-report-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  @media (max-width: 700px) {
+    .ves-report-grid { grid-template-columns: 1fr; }
+  }
+
+  .ves-image-placeholder {
+    background: #0a0a0a;
+    border: 0.5px solid var(--border);
+    border-radius: 6px;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .ves-image-placeholder-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.15);
+  }
+
+  .ves-image-placeholder-sub {
+    font-size: 10px;
+    color: rgba(255,255,255,0.08);
+  }
+
+  .ves-decision-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .ves-metric {
+    border-bottom: 0.5px solid var(--border);
+    padding-bottom: 18px;
+  }
+
+  .ves-metric:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .ves-metric-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .ves-metric-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .ves-metric-val.green { color: #7ecfb3; }
+
+  .ves-metric-detail {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+
+  .ves-verdict {
+    padding-top: 18px;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .ves-verdict-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .ves-verdict-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--white);
+    letter-spacing: 0.5px;
+  }
+
+  .intel-card {
+    background: #0c0c16;
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 32px;
+    max-width: 860px;
+    margin-top: 20px;
+  }
+
+  .intel-header {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 10px;
+    letter-spacing: 0.3px;
+  }
+
+  .intel-body {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 560px;
+    margin-bottom: 24px;
+  }
+
+  .intel-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .intel-stat-cell { background: #0a0a0a; padding: 16px 20px; }
+
+  .intel-stat-label {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .intel-stat-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .intel-return {
+    border-top: 0.5px solid var(--border);
+    padding-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .intel-return-text { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+  .intel-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .intel-btn-primary {
+    padding: 9px 18px;
+    background: var(--white);
+    color: #0a0a0a;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: opacity 0.2s;
+  }
+
+  .intel-btn-primary:hover { opacity: 0.88; }
+
+  .intel-btn-secondary {
+    padding: 9px 18px;
+    background: transparent;
+    color: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: border-color 0.2s;
+  }
+
+  .intel-btn-secondary:hover { border-color: rgba(255,255,255,0.25); }
+
+  .intel-footnote {
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.5px;
+    font-family: 'DM Mono', monospace;
+  }
+
   .cp-footer {
     padding: 28px 48px;
     display: flex;
@@ -549,6 +727,7 @@
     .cp-hero, .cp-section { padding: 48px 20px; }
     .cp-stats-row { grid-template-columns: repeat(2, 1fr); }
     .cp-footer { padding: 20px; flex-direction: column; gap: 8px; }
+    .intel-stats { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -558,6 +737,7 @@
   <a class="cp-logo" href="#">Card<span>Projector</span></a>
   <ul class="cp-nav-links">
     <li><a href="#analysis">Live Analysis</a></li>
+    <li><a href="#report">VES Report</a></li>
     <li><a href="#modules">GPPP Modules</a></li>
     <li><a href="#roi">ROI Model</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
@@ -598,12 +778,10 @@
       </div>
       <div class="phx-badge">SUBMIT</div>
     </div>
-
     <div class="phx-score-row">
       <div class="phx-score">9.35</div>
       <div class="phx-score-label">GPPP score<br><span>High volatility</span></div>
     </div>
-
     <div class="phx-bars">
       <div class="phx-bar-row">
         <div class="phx-bar-label">Surface</div>
@@ -626,7 +804,6 @@
         <div class="phx-bar-val">9.2</div>
       </div>
     </div>
-
     <div class="phx-prob-row">
       <div class="phx-prob-cell">
         <div class="phx-prob-grade">PSA 10</div>
@@ -644,13 +821,11 @@
         <div class="phx-prob-label">NM-MT</div>
       </div>
     </div>
-
     <div class="phx-decision">
       <div class="phx-decision-dot"></div>
       <div class="phx-decision-text">Decision: Submit</div>
       <div class="phx-decision-sub">EV positive at $29 cost basis</div>
     </div>
-
     <div class="ves-row">
       <div class="ves-zone red">
         <div class="ves-label">Red</div>
@@ -665,6 +840,64 @@
         <div class="ves-desc">Clean submit</div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="cp-section" id="report">
+  <div class="cp-section-label">GPPP Analysis — Live Report</div>
+  <div class="ves-report">
+    <div class="ves-report-header">Visual Evidence System — PHX-0001</div>
+    <div class="ves-report-grid">
+      <div class="ves-image-placeholder">
+        <div class="ves-image-placeholder-label">Card Image + VES Overlay</div>
+        <div class="ves-image-placeholder-sub">Defect callouts / centering grid</div>
+      </div>
+      <div class="ves-decision-stack">
+        <div class="ves-metric">
+          <div class="ves-metric-label">PSA 10 Probability</div>
+          <div class="ves-metric-val">72%</div>
+        </div>
+        <div class="ves-metric">
+          <div class="ves-metric-label">Expected Value (RAKE adj.)</div>
+          <div class="ves-metric-val green">+$118</div>
+        </div>
+        <div class="ves-metric">
+          <div class="ves-metric-label">Primary Failure Point</div>
+          <div class="ves-metric-detail" style="font-size:13px; color:#f5f3ee; margin-top:0;">Top edge micro-chipping</div>
+        </div>
+        <div class="ves-verdict">
+          <div class="ves-verdict-label">Recommendation</div>
+          <div class="ves-verdict-text">SUBMIT — favorable risk/reward</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="intel-card">
+    <div class="intel-header">This card just strengthened the model</div>
+    <div class="intel-body">You are a contributor to the live submission intelligence system. Every card processed sharpens the model and helps surface the true value of your collection.</div>
+    <div class="intel-stats">
+      <div class="intel-stat-cell">
+        <div class="intel-stat-label">Confidence</div>
+        <div class="intel-stat-val">Medium</div>
+      </div>
+      <div class="intel-stat-cell">
+        <div class="intel-stat-label">Population Depth</div>
+        <div class="intel-stat-val">Low</div>
+      </div>
+      <div class="intel-stat-cell">
+        <div class="intel-stat-label">Volatility</div>
+        <div class="intel-stat-val">High</div>
+      </div>
+    </div>
+    <div class="intel-return">
+      <div class="intel-return-text">Check back in 24 hours for your first population-adjusted update.</div>
+    </div>
+    <div class="intel-actions">
+      <button class="intel-btn-primary">Track this card</button>
+      <button class="intel-btn-secondary">Add purchase details</button>
+      <button class="intel-btn-secondary">Start submission batch</button>
+    </div>
+    <div class="intel-footnote">Tracked cards receive faster model updates and tighter projections.</div>
   </div>
 </div>
 
@@ -690,7 +923,7 @@
     <div class="mod-cell">
       <div class="mod-num">IV</div>
       <div class="mod-title">Decision Engine</div>
-      <div class="mod-desc">Submit / Hold / Pass verdict derived from module I–III outputs and cost threshold.</div>
+      <div class="mod-desc">Submit / Hold / Pass verdict derived from module I-III outputs and cost threshold.</div>
     </div>
     <div class="mod-cell">
       <div class="mod-num">V</div>
